@@ -1,0 +1,42 @@
+#제목과 버전 설정
+application:
+   version: v0.0.1
+   title: HYUNSANGWON
+## 포트 수정
+server:
+   port: 8080
+   
+#개발 버전 설정
+spring:
+   profiles:
+      active: dev
+
+#JWT
+jwt:
+   auth:
+      app: Spring-Security-App
+      secret_key: testkey!secret@12334
+      expires_in: 3600
+      
+#MyBatis 설정
+mybatis:
+   mapper-locations: classpath:/sqlmap/sqlmapper_*.xml
+   type-aliases-package: com.example.security.vo
+   
+#MySQL 접속정보 설정
+---
+spring:
+   profiles: dev
+   datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/auth?useUnicode=true&charaterEncoding=utf-8&serverTimezone=UTC
+      username: root
+      password: tkddnjs0823
+---
+spring:
+   profiles: env
+   datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://sangwon-database.csnd3edwjp9u.ap-northeast-2.rds.amazonaws.com:3306/dw?useUnicode=true&charaterEncoding=utf-8&serverTimezone=UTC
+      username: admin
+      password: tkddnjs0823

@@ -1,0 +1,46 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis에게 Mapper 경로를 적어야 한다. -->
+<mapper namespace="com.example.security.mapper.UserMapper">
+	
+	<select id="selectUserInfo" resultType="UserVO">
+       	SELECT
+            u.user_no AS id,
+            u.user_id AS userId ,
+            u.user_password AS userPassword,
+            u.user_name AS name,
+            u.email AS email
+        FROM users AS u
+        WHERE u.user_id = #{userId}
+    </select>
+	
+	<select id="selectUserAuth" resultType="AuthorityVO">
+		SELECT
+            a.role_id AS id,
+            a.role_name AS roleCode,
+            a.role_description AS roleDescription
+        FROM users AS u
+        INNER JOIN auth_users_authority AS au
+        	ON au.user_no = u.user_no 
+        INNER JOIN auth_authority as a
+        	ON a.role_id = au.role_id
+        WHERE user_id = #{userId}
+	</select>
+
+
+	<insert id="insertUser">
+		INSERT INTO users
+		(
+			user_id,
+			user_password,
+			user_name,
+			email
+		)
+		VALUES
+		(
+			#{userId},
+			#{userPassword},
+			#{userName},
+			#{email}
+		)
+	</insert>
+</mapper>
